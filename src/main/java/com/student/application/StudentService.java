@@ -3,6 +3,8 @@ package com.student.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -16,6 +18,11 @@ public class StudentService {
                 .address(createStudentDto.getAddress())
                 .build();
         studentRepository.save(student);
+        return studentMapper.toDto(student);
+    }
+
+    public StudentDto getStudent(long id) {
+        Student student = studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         return studentMapper.toDto(student);
     }
 }
