@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class StudentDto {
 
+    private Long id;
     private String name;
     private String address;
 }

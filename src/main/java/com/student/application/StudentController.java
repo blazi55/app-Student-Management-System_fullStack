@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("student")
 @RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping
+    @PostMapping("/create")
     public StudentDto addStudent(@RequestBody StudentDto studentDto) {
         return this.studentService.register(studentDto);
     }

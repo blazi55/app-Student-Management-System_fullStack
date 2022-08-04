@@ -9,15 +9,15 @@ public class StudentService {
 
     private StudentRepository studentRepository;
 
+    private StudentMapper studentMapper;
+
     public StudentDto register(StudentDto studentDto) {
         Student student = Student.builder()
+                .id(studentDto.getId())
                 .name(studentDto.getName())
                 .address(studentDto.getAddress())
                 .build();
         studentRepository.save(student);
-        return StudentDto.builder()
-                .name(student.getName())
-                .address(student.getAddress())
-                .build();
+        return studentMapper.toDto(student);
     }
 }
