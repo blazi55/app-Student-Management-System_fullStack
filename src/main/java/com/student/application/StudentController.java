@@ -13,8 +13,8 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping("/create")
-    public StudentDto addStudent(@RequestBody StudentDto studentDto) {
-        return this.studentService.register(studentDto);
+    @PostMapping()
+    public StudentDto addStudent(@RequestBody CreateStudent createStudent) {
+        return studentService.register(createStudent);
     }
 }

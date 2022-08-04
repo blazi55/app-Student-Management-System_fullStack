@@ -11,11 +11,10 @@ public class StudentService {
 
     private StudentMapper studentMapper;
 
-    public StudentDto register(StudentDto studentDto) {
-        Student student = Student.builder()
-                .id(studentDto.getId())
-                .name(studentDto.getName())
-                .address(studentDto.getAddress())
+    public StudentDto register(CreateStudent createStudent) {
+        final Student student = Student.builder()
+                .name(createStudent.getName())
+                .address(createStudent.getAddress())
                 .build();
         studentRepository.save(student);
         return studentMapper.toDto(student);
