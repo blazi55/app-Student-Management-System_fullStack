@@ -21,8 +21,8 @@ public class StudentService {
         return studentMapper.toDto(student);
     }
 
-    public StudentDto getStudent(long id) {
-        Student student = studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    public StudentDto getStudent(long studentId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(IllegalArgumentException::new);
         return studentMapper.toDto(student);
     }
 }
