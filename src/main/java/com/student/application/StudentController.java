@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("student")
 @RequiredArgsConstructor
+@CrossOrigin
 public class StudentController {
 
     private final StudentService studentService;
