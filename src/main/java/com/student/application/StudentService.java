@@ -7,16 +7,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+    private final StudentMapper studentMapper;
 
-    private StudentMapper studentMapper;
-
-    public StudentDto register(CreateStudent createStudent) {
+    public Student register(CreateStudentDto createStudent) {
         final Student student = Student.builder()
                 .name(createStudent.getName())
                 .address(createStudent.getAddress())
                 .build();
         studentRepository.save(student);
-        return studentMapper.toDto(student);
+        return student;
     }
 }
