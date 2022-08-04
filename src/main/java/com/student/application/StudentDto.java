@@ -5,23 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-@Entity
-@Table(name = "STUDENT")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class StudentDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
     private String name;
-
-    @Column
     private String address;
 }

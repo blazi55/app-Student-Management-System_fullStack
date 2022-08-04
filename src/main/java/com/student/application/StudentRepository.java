@@ -1,4 +1,6 @@
 package com.student.application;
 
-public class StudentRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface StudentRepository extends CrudRepository<Student, Long> {
 }
