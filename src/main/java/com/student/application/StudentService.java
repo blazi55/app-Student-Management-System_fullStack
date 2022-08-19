@@ -3,6 +3,7 @@ package com.student.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,10 @@ public class StudentService {
     public StudentDto getStudent(long studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(IllegalArgumentException::new);
         return studentMapper.toDto(student);
+    }
+
+    public List<StudentDto> getAll() {
+        List<Student> students = (List<Student>) studentRepository.findAll();
+        return studentMapper.toDtoList(students);
     }
 }

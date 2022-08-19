@@ -3,6 +3,8 @@ package com.student.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("student")
 @RequiredArgsConstructor
@@ -19,5 +21,10 @@ public class StudentController {
     @GetMapping("{studentId}")
     public StudentDto getStudent(@PathVariable long studentId) {
         return studentService.getStudent(studentId);
+    }
+
+    @GetMapping
+    public List<StudentDto> getStudents() {
+        return studentService.getAll();
     }
 }
