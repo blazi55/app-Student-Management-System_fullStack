@@ -9,8 +9,8 @@ export default function Student() {
     const textStyle = {margin: "10px"}
     const[name, setName] = useState('')
     const[address, setAddress] = useState('')
-    const[number, setNUmber] = useState('')
     const[student, setStudent] = useState([])
+
 
     const onSave = (e) => {
         e.preventDefault()
@@ -25,21 +25,14 @@ export default function Student() {
         })
     }
 
-    // const onFind = (e) => {
-    //     e.preventDefault()
-    //     const student = {name, address}
-    //     console.log(student)
-    //     fetch('http://localhost:8080/student/`${number}`', {
-    //         method: "GET",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify(student)
-    //     }).then(res => res.json)
-    //     .then(result => setStudent(result))
-    // }
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/student/' + `{number}`)
-    //     .then(res => res.json)
-    // }, [])
+    useEffect(() => {
+      fetch("http://localhost:8080/student/all")
+      .then(res => {
+        return res.json();
+      }).then(data => {
+        setStudent(data);
+      });
+    }, []);
 
   return (
     <Box
@@ -57,12 +50,16 @@ export default function Student() {
         fullWidth style={textStyle}/>
         <Button variant="outlined" onClick={onSave}> Submit </Button>
       </Paper>
-      {/* <Paper style={papierStyle}>
-      <TextField id="outlined-basic" label="Student Name" variant="outlined" value={number} onChange={(e) => setNUmber(e.target.value)}
-        fullWidth style={textStyle}/>
-        {student.id}
-      <Button variant="outlined"> Find </Button>
-      </Paper> */}
+      <Paper elevation={3} style={papierStyle}>
+        <div>Students Data: </div>
+        {student.map(st => (
+          <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
+            <div> <b>UserName:</b> {st.name}</div>
+            <div>-------------------------</div>
+            <div> <b>Adress:</b> {st.address}</div>
+          </Paper>
+        ))}
+      </Paper>
     </Box>
   );
 }
