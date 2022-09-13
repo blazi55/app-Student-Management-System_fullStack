@@ -31,4 +31,9 @@ public class StudentService {
         List<Student> students = (List<Student>) studentRepository.findAll();
         return studentMapper.toDtoList(students);
     }
+
+    public void removeStudent(long studentId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(IllegalArgumentException::new);
+        studentRepository.delete(student);
+    }
 }

@@ -18,6 +18,11 @@ public class StudentController {
         return studentService.register(createStudent);
     }
 
+    @DeleteMapping("{studentId}")
+    public void removeStudent(@PathVariable long studentId) {
+        studentService.removeStudent(studentId);
+    }
+
     @GetMapping("{studentId}")
     public StudentDto getStudent(@PathVariable long studentId) {
         return studentService.getStudent(studentId);
