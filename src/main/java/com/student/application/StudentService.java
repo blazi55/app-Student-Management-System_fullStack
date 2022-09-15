@@ -36,4 +36,8 @@ public class StudentService {
         Student student = studentRepository.findById(studentId).orElseThrow(IllegalArgumentException::new);
         studentRepository.delete(student);
     }
+
+    public Student getStudentByName(String name) {
+        return studentRepository.findStudentByName(name);
+    }
 }

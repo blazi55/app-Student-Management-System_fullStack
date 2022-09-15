@@ -32,4 +32,9 @@ public class StudentController {
     public List<StudentDto> getStudents() {
         return studentService.getAll();
     }
+
+    @GetMapping("/studentName")
+    public Student getStudentByName(@RequestParam String name) {
+        return studentService.getStudentByName(name);
+    }
 }
