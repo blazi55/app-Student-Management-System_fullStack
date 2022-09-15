@@ -11,6 +11,8 @@ export default function Student() {
     const[address, setAddress] = useState('')
     const[student, setStudent] = useState([])
     const[studentId, setStudentId] = useState(0)
+    const[studentName, setStudentName] = useState('')
+    const[studentSingle, setStudentSingle] = useState([])
 
 
     const onSave = (e) => {
@@ -35,6 +37,18 @@ export default function Student() {
           console.log(studentId)
       })
   }
+
+  const getStudent = () => {
+    fetch(`http://localhost:8080/student/studentName?name=${studentName}`, {
+        method: "GET",
+    }).then(res => {
+      return res.json();
+    }).then((data) => {
+        console.log("Get Him!")
+        console.log(data.studentName)
+        setStudentSingle(data);
+    })
+}
 
     useEffect(() => {
       fetch("http://localhost:8080/student/all")
@@ -66,9 +80,24 @@ export default function Student() {
         <TextField id="outlined-basic" label="StudentId" variant="outlined" value={studentId} onChange={(e) => setStudentId(e.target.value)} 
             fullWidth style={textStyle}/>
         <Button variant="outlined" onClick={onDelete}> Delete Student </Button>
+        <div className='studentId'>
+          Write Id to get Student
+          </div>
+        <TextField id="outlined-basic" label="StudentName" variant="outlined" value={studentName} 
+        onChange={(e) => setStudentName(e.target.value)} 
+            fullWidth style={textStyle}/>
+        <Button variant="outlined" onClick={getStudent}> Get Student </Button>
       </Paper>
       <Paper elevation={3} style={papierStyle}>
         <div>Students Data: </div>
+        {/* {studentSingle.map(st => (
+          <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
+            <div> <b>UserName:</b> {st.name}</div>
+            <div>-------------------------</div>
+            <div> <b>Adress:</b> {st.address}</div>
+          </Paper>
+        ))}  */}
+        
         {student.map(st => (
           <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
             <div> <b>UserName:</b> {st.name}</div>
