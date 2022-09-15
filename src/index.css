@@ -16,3 +16,8 @@ code {
   background-color: aqua;
   margin-left: 80%;
 }
+
+.studentId {
+  width: 100%;
+  padding-top: 40px;
+}

@@ -32,6 +32,7 @@ export default function Student() {
           method: "DELETE",
       }).then(() => {
           console.log("Dead")
+          console.log(studentId)
       })
   }
 
@@ -58,15 +59,18 @@ export default function Student() {
         fullWidth style={textStyle}/>
         <TextField id="outlined-basic" label="Address" variant="outlined" value={address} onChange={(e) => setAddress(e.target.value)} 
         fullWidth style={textStyle}/>
-        <div onChange={() => {setStudentId(studentId + 1)}}>
-          <Button variant="outlined" onClick={onSave}> Submit </Button>
+        <Button variant="outlined" onClick={onSave}> Submit </Button>
+        <div className='studentId'>
+          Write Id to delete Student
           </div>
+        <TextField id="outlined-basic" label="StudentId" variant="outlined" value={studentId} onChange={(e) => setStudentId(e.target.value)} 
+            fullWidth style={textStyle}/>
+        <Button variant="outlined" onClick={onDelete}> Delete Student </Button>
       </Paper>
       <Paper elevation={3} style={papierStyle}>
         <div>Students Data: </div>
         {student.map(st => (
           <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
-            <button className="deleteButton" onClick={onDelete}> Delete</button>
             <div> <b>UserName:</b> {st.name}</div>
             <div>-------------------------</div>
             <div> <b>Adress:</b> {st.address}</div>
