@@ -34,7 +34,7 @@ public class StudentController {
     }
 
     @GetMapping("/studentName")
-    public Student getStudentByName(@RequestParam String name) {
+    public List<Student> getStudentByName(@RequestParam String name) {
         return studentService.getStudentByName(name);
     }
 }
