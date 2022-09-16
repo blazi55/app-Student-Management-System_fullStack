@@ -14,18 +14,16 @@ export default function Student() {
     const[studentName, setStudentName] = useState('')
     const[studentSingle, setStudentSingle] = useState([])
 
-
     const onSave = (e) => {
         e.preventDefault()
-        const student = {name, address}
-        console.log(student)
+        const studentSave = {name, address}
+        console.log(studentSave)
         fetch("http://localhost:8080/student", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(student)
+            body: JSON.stringify(studentSave)
         }).then(() => {
             console.log("Added")
-            console.log(studentId)
         })
     }
 
@@ -38,26 +36,22 @@ export default function Student() {
       })
   }
 
-  const getStudent = () => {
-    fetch(`http://localhost:8080/student/studentName?name=${studentName}`, {
-        method: "GET",
-    }).then(res => {
-      return res.json();
-    }).then((data) => {
-        console.log("Get Him!")
-        console.log(data.studentName)
-        setStudentSingle(data);
-    })
-}
+  const getStudent = async () => {
+    const response = await fetch(`http://localhost:8080/student/studentName?name=${studentName}`
+    ).then((response) => response.json());
+    console.log(response)
+    setStudentSingle(response);
+    console.log(response)
+  };
 
-    useEffect(() => {
-      fetch("http://localhost:8080/student/all")
-      .then(res => {
-        return res.json();
-      }).then(data => {
-        setStudent(data);
-      });
-    }/*mozna dodac []*/);
+    // useEffect(() => {
+    //   fetch("http://localhost:8080/student/all")
+    //   .then(res => {
+    //     return res.json();
+    //   }).then(data => {
+    //     setStudent(data);
+    //   });
+    // }/*mozna dodac []*/);
 
   return (
     <Box
@@ -81,30 +75,30 @@ export default function Student() {
             fullWidth style={textStyle}/>
         <Button variant="outlined" onClick={onDelete}> Delete Student </Button>
         <div className='studentId'>
-          Write Id to get Student
+          Write Name to get Student
           </div>
-        <TextField id="outlined-basic" label="StudentName" variant="outlined" value={studentName} 
+        <TextField id="outlined-basic" label="Student Name" variant="outlined" value={studentName} 
         onChange={(e) => setStudentName(e.target.value)} 
             fullWidth style={textStyle}/>
         <Button variant="outlined" onClick={getStudent}> Get Student </Button>
       </Paper>
       <Paper elevation={3} style={papierStyle}>
         <div>Students Data: </div>
-        {/* {studentSingle.map(st => (
-          <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
-            <div> <b>UserName:</b> {st.name}</div>
-            <div>-------------------------</div>
-            <div> <b>Adress:</b> {st.address}</div>
-          </Paper>
-        ))}  */}
-        
-        {student.map(st => (
+        {studentSingle.map(st => (
           <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
             <div> <b>UserName:</b> {st.name}</div>
             <div>-------------------------</div>
             <div> <b>Adress:</b> {st.address}</div>
           </Paper>
         ))}
+        
+        {/* {student.map(st => (
+          <Paper elevation={3} style={{margin:"10px", padding:"15px", textAlign:"center"}} key={st.id}>
+            <div> <b>UserName:</b> {st.name}</div>
+            <div>-------------------------</div>
+            <div> <b>Adress:</b> {st.address}</div>
+          </Paper>
+        ))} */}
       </Paper>
     </Box>
   );
