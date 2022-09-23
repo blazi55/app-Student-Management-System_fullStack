@@ -13,6 +13,7 @@ export default function Student() {
     const[studentId, setStudentId] = useState(0)
     const[studentName, setStudentName] = useState('')
     const[studentSingle, setStudentSingle] = useState([])
+   
 
     const onSave = (e) => {
         e.preventDefault()
@@ -20,7 +21,10 @@ export default function Student() {
         console.log(studentSave)
         fetch("http://localhost:8080/student", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': 'http://localhost:8080/student'
+            },
             body: JSON.stringify(studentSave)
         }).then(() => {
             console.log("Added")
@@ -30,6 +34,10 @@ export default function Student() {
     const onDelete = () => {
       fetch(`http://localhost:8080/student/${studentId}`, {
           method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:8080/student'
+          },
       }).then(() => {
           console.log("Dead")
           console.log(studentId)
@@ -37,7 +45,13 @@ export default function Student() {
   }
 
   const getStudent = async () => {
-    const response = await fetch(`http://localhost:8080/student/studentName?name=${studentName}`
+    const response = await fetch(`http://localhost:8080/student/studentName?name=${studentName}`,{
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:8080/student'
+      }
+    }
     ).then((response) => response.json());
     console.log(response)
     setStudentSingle(response);
@@ -45,7 +59,13 @@ export default function Student() {
   };
 
     // useEffect(() => {
-    //   fetch("http://localhost:8080/student/all")
+    //   fetch("http://localhost:8080/student/all", {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': 'http://localhost:8080/student'
+    //   },
+    //   method: "GET",
+    // })
     //   .then(res => {
     //     return res.json();
     //   }).then(data => {
