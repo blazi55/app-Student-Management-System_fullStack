@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +22,8 @@ public class StudentService {
     }
 
     public StudentDto getStudent(long studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(IllegalArgumentException::new);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student with ID: " + studentId + " doesn't not exists"));
         return studentMapper.toDto(student);
     }
 
@@ -33,7 +33,8 @@ public class StudentService {
     }
 
     public void removeStudent(long studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(IllegalArgumentException::new);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student with ID: " + studentId + " doesn't not exists"));
         studentRepository.delete(student);
     }
 
